@@ -21,17 +21,19 @@ root.title("Mô phỏng nhập liệu")
 
 initial_word = choose_word()
 
-display_label = tk.Label(root, text=initial_word, font=("Arial", 18))
-display_label.pack(padx=10, pady=10)
+display_label = tk.Label(root, text=initial_word, font=("Arial", 40), justify='center')
+display_label.pack(padx=20, pady=(80, 20), anchor='center')
 
-entry = tk.Entry(root, width=30)
-entry.pack(padx=10, pady=10)
-entry.bind("<Return>", check_word)  # Gán sự kiện nhấn phím Enter cho hành động kiểm tra
+entry = tk.Entry(root, width=30, font=("Arial", 20))
+entry.pack(padx=20, pady=10, anchor='center')
+entry.bind("<Return>", check_word)  
 
-check_button = tk.Button(root, text="Kiểm tra", command=check_word)
-check_button.pack(padx=10, pady=10)
+check_button = tk.Button(root, text="Kiểm tra", command=check_word, font=("Arial", 30))
+check_button.pack(padx=20, pady=10, anchor='center')
 
-result_label = tk.Label(root, text="", font=("Arial", 14))
-result_label.pack(padx=10, pady=10)
+result_label = tk.Label(root, text="", font=("Arial", 25))
+result_label.pack(padx=20, pady=10, anchor='center')
+
+root.geometry("800x400")  # Thiết lập kích thước cửa sổ 
 
 root.mainloop()
