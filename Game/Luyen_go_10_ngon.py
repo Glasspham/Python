@@ -1,12 +1,13 @@
 import random
 import string
 import tkinter as tk
+from PIL import Image, ImageTk
 
-# Lựa chọn từ điển pháp
+# Function to choose a random word
 def choose_word():
     return ''.join(random.choices(string.ascii_letters, k=5))
 
-# Kiểm tra tính đúng đắn của từ nhập vào và tính điểm
+# Function to check the entered word and update score
 def check_word(event=None):
     global score, time_left
     if time_left > 0:
@@ -27,9 +28,8 @@ def check_word(event=None):
         score_label.config(text=f"Score: {score}")
     else:
         result_label.config(text="Time's up!", fg="blue")
-        check_button.config(text="Time's up!", state=tk.DISABLED)  # Vô hiệu hóa nút Kiểm tra khi hết thời gian
+        check_button.config(text="Time's up!", state=tk.DISABLED)
 
-# Cập nhật thời gian và kiểm tra khi hết thời gian
 def update_time():
     global time_left, timer
     time_left -= 1
@@ -37,22 +37,36 @@ def update_time():
 
     if time_left == 0:
         root.after_cancel(timer)
-        check_button.config(text="Time's up!", state=tk.DISABLED)  # Vô hiệu hóa nút Kiểm tra khi hết thời gian
+        check_button.config(text="Time's up!", state=tk.DISABLED)
     else:
         timer = root.after(1000, update_time)
 
 root = tk.Tk()
-root.title("Mô phỏng nhập liệu")
+root.title("Word Entry Simulation")
 
-score = 0  # Điểm ban đầu
-time_left = 10  # Thời gian chơi ban đầu (10 giây)
+score = 0
+time_left = 10
 
+# Load the image
+background_image = Image.open("path/to/your/image.jpg")  # Replace with your image file path
+window_width, window_height = 800, 500
+background_image = background_image.resize((window_width, window_height))
+background_photo = ImageTk.PhotoImage(background_image)
+
+# Create a Canvas to place the background image
+canvas = tk.Canvas(root, width=window_width, height=window_height)
+canvas.place(x=0, y=0, relwidth=1, relheight=1)
+
+# Place the background image on the Canvas at the bottom
+canvas.create_image(0, 0, anchor=tk.NW, image=background_photo)
+
+# Other widgets
 display_label = tk.Label(root, text=choose_word(), font=("Open Sans", 40), justify='center')
 display_label.pack(padx=20, pady=(80, 20), anchor='center')
 
 entry = tk.Entry(root, width=30, font=("Open Sans", 20))
 entry.pack(padx=20, pady=10, anchor='center')
-entry.bind("<Return>", check_word)  
+entry.bind("<Return>", check_word) 
 
 check_button = tk.Button(root, text="Kiểm tra", command=check_word, font=("Open Sans", 30))
 check_button.pack(padx=20, pady=10, anchor='center')
@@ -66,9 +80,8 @@ score_label.pack(padx=20, pady=10, anchor='center')
 time_label = tk.Label(root, text=f"Time Left: {time_left} seconds", font=("Open Sans", 20))
 time_label.pack(padx=20, pady=10, anchor='center')
 
-# Bắt đầu đếm thời gian
+# Begin the countdown
 update_time()
 
-root.geometry("800x500")  # Thiết lập kích thước cửa sổ là 800x500
-
+root.geometry("800x500")
 root.mainloop()
