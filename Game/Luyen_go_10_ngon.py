@@ -9,7 +9,8 @@ def choose_word():
 
 # Function to check the entered word and update score
 def check_word(event=None):
-    global score, time_left
+    global score, time_left, timer
+    
     if time_left > 0:
         entered_word = entry.get()
         current_word = display_label.cget("text")
@@ -17,7 +18,12 @@ def check_word(event=None):
         if entered_word == current_word:
             display_label.config(text=choose_word())
             result_label.config(text="Correct", fg="green")
-            score += 1
+            score += 10
+            
+            # Reset the timer when a correct word is entered
+            time_left = 10  # Reset the time limit to 10 seconds
+            update_time()   # Restart the countdown timer
+            
         else:
             if entered_word == "":
                 result_label.config(text="Please enter a word", fg="red")
@@ -28,7 +34,17 @@ def check_word(event=None):
         score_label.config(text=f"Score: {score}")
     else:
         result_label.config(text="Time's up!", fg="blue")
-        check_button.config(text="Time's up!", state=tk.DISABLED)
+        check_button.config(text="Play Again", state=tk.NORMAL, command=reset_game)
+
+def reset_game():
+    global score, time_left
+    score = 0
+    time_left = 10
+    score_label.config(text=f"Score: {score}")
+    display_label.config(text=choose_word())
+    result_label.config(text="")
+    check_button.config(text="Check", state=tk.NORMAL)
+    update_time()  # Restart the countdown timer
 
 def update_time():
     global time_left, timer
@@ -37,7 +53,6 @@ def update_time():
 
     if time_left == 0:
         root.after_cancel(timer)
-        check_button.config(text="Time's up!", state=tk.DISABLED)
     else:
         timer = root.after(1000, update_time)
 
@@ -68,7 +83,7 @@ entry = tk.Entry(root, width=30, font=("Open Sans", 20))
 entry.pack(padx=20, pady=10, anchor='center')
 entry.bind("<Return>", check_word) 
 
-check_button = tk.Button(root, text="Kiểm tra", command=check_word, font=("Open Sans", 30))
+check_button = tk.Button(root, text="check", command=check_word, font=("Open Sans", 30))
 check_button.pack(padx=20, pady=10, anchor='center')
 
 result_label = tk.Label(root, text="", font=("Open Sans", 25))
