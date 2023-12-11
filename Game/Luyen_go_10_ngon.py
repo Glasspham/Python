@@ -18,7 +18,7 @@ def check_word(event=None):
         if entered_word == current_word:
             display_label.config(text=choose_word())
             result_label.config(text="Correct", fg="green")
-            score += 10
+            score += 1
             
             # Reset the timer when a correct word is entered
             time_left = 10  # Reset the time limit to 10 seconds
