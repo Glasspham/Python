@@ -28,7 +28,7 @@ pen.pendown()
 
 # Viết chữ 'I Love You'
 pen.color('white')  # Đổi màu chữ để nổi bật trên nền đỏ
-pen.write("I Love Vy", align="center", font=("Arial", 18, "normal"))
+pen.write("I Love You", align="center", font=("Arial", 18, "normal"))
 
 # Đóng cửa sổ khi kết thúc
 turtle.done()
