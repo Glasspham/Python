@@ -95,6 +95,9 @@ score_label.pack(padx=20, pady=10, anchor='center')
 time_label = tk.Label(root, text=f"Time Left: {time_left} seconds", font=("Open Sans", 20))
 time_label.pack(padx=20, pady=10, anchor='center')
 
+name_label = tk.Label(root, text="Glass", font=("Open Sans", 20))
+name_label.place(x=10, y=10)
+
 # Begin the countdown
 update_time()
 
