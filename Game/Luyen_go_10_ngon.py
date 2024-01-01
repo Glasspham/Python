@@ -1,28 +1,7 @@
 import random
 import string
-import os.path
 import tkinter as tk
 from PIL import Image, ImageTk
-
-# Đường dẫn tới tệp lưu điểm cao nhất
-file_path = "path\highest_score.txt"  # Thay đổi đường dẫn tệp với đường dẫn tuyệt đối của bạn
-
-# Hàm lưu điểm cao nhất vào tệp
-def save_highest_score():
-    with open(file_path, "w") as file:
-        file.write(str(highest_score))
-
-# Hàm tải điểm cao nhất từ tệp (nếu tệp tồn tại)
-def load_highest_score():
-    global highest_score
-    if os.path.exists(file_path):
-        with open(file_path, "r") as file:
-            highest_score = int(file.read())  # Cập nhật giá trị highest_score
-            return highest_score
-    return 0  # Trả về 0 nếu không có tệp tồn tại
-
-# Lúc bắt đầu chương trình, tải điểm cao nhất từ tệp
-highest_score = load_highest_score()
 
 # Chức năng chọn từ ngẫu nhiên
 def choose_word():
@@ -43,7 +22,7 @@ def check_word(event=None):
             if score > highest_score:
                 highest_score = score  # Cập nhật highest_score nếu đạt được điểm cao mới
                 hscore_label.config(text=f"Điểm cao nhất: {highest_score}")
-                save_highest_score()  # Lưu điểm cao nhất vào tệp tin
+                
         else:
             if entered_word == "":
                 result_label.config(text="Please enter a word", fg="red")
@@ -53,10 +32,6 @@ def check_word(event=None):
 
         entry.delete(0, tk.END)
         score_label.config(text=f"Score: {score}")
-    else:
-        result_label.config(text="Time's up!", fg="blue")
-        check_button.config(text="Play Again!", state=tk.DISABLED)
-            
 
 def update_time():
     global time_left, timer
@@ -69,15 +44,25 @@ def update_time():
     else:
         timer = root.after(1000, update_time)
 
-root = tk.Tk()
-root.title("Speed Typing ")
+def reset_game(): # Reset game
+    global score, time_left
+    score = 0
+    time_left = 25
+    score_label.config(text=f"Score: {score}")
+    time_label.config(text=f"Time Left: {time_left} seconds")
+    display_label.config(text=choose_word())
+    result_label.config(text="")
+    check_button.config(text="Kiểm tra", state=tk.NORMAL)
+    update_time()
 
+root = tk.Tk()
+root.title("Speed Typing")
 score = 0
 highest_score = 0  # Tạo biến để lưu điểm cao nhất
-time_left = 20
+time_left = 25
 
 # Load the image
-background_image = Image.open ("path\.jpg")  # Thay thế bằng đường dẫn file ảnh của bạn
+background_image = Image.open ("path\Back.jpg")  # Thay thế bằng đường dẫn file ảnh của bạn
 window_width, window_height = 800, 500
 background_image = background_image.resize((window_width, window_height))
 background_photo = ImageTk.PhotoImage(background_image)
@@ -100,8 +85,11 @@ entry.bind("<Return>", check_word)
 check_button = tk.Button(root, text="Kiểm tra", command=check_word, font=("Open Sans", 30))
 check_button.pack(padx=20, pady=10, anchor='center')
 
-result_label = tk.Label(root, text="", font=("Open Sans", 25))
-result_label.pack(padx=20, pady=10, anchor='center')
+# Thêm nút "Chơi lại" và gán chức năng reset_game cho nó
+play_again_button = tk.Button(root, text="Chơi lại", command=reset_game, font=("Open Sans", 20))
+play_again_button.pack(padx=20, pady=10, anchor='center') 
+
+result_label = tk.Label(root, text="", font=("Open Sans", 25)) # 
 
 score_label = tk.Label(root, text=f"Score: {score}", font=("Open Sans", 20))
 score_label.pack(padx=20, pady=10, anchor='center')
