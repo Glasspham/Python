@@ -82,11 +82,11 @@ entry = tk.Entry(root, width=30, font=("Open Sans", 20))
 entry.pack(padx=20, pady=10, anchor='center')
 entry.bind("<Return>", check_word) 
 
-check_button = tk.Button(root, text="Kiểm tra", command=check_word, font=("Open Sans", 30))
+check_button = tk.Button(root, text="Check", command=check_word, font=("Open Sans", 30))
 check_button.pack(padx=20, pady=10, anchor='center')
 
 # Thêm nút "Chơi lại" và gán chức năng reset_game cho nó
-play_again_button = tk.Button(root, text="Chơi lại", command=reset_game, font=("Open Sans", 20))
+play_again_button = tk.Button(root, text="Reset", command=reset_game, font=("Open Sans", 20))
 play_again_button.pack(padx=20, pady=10, anchor='center') 
 
 result_label = tk.Label(root, text="", font=("Open Sans", 25)) # 
