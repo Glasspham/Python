@@ -78,30 +78,30 @@ canvas.create_image(0, 0, anchor=tk.NW, image=background_photo)
 display_label = tk.Label(root, text=choose_word(), font=("Times New Roman", 40), justify='center')
 display_label.pack(padx=20, pady=(80, 20), anchor='center')
 
-entry = tk.Entry(root, width=30, font=("Open Sans", 20))
+entry = tk.Entry(root, width=30, font=("Times New Roman", 20))
 entry.pack(padx=20, pady=10, anchor='center')
 entry.bind("<Return>", check_word) 
 
-check_button = tk.Button(root, text="Check", command=check_word, font=("Open Sans", 30))
+check_button = tk.Button(root, text="Check", command=check_word, font=("Times New Roman", 30))
 check_button.pack(padx=20, pady=10, anchor='center')
 
 # Thêm nút "Chơi lại" và gán chức năng reset_game cho nó
-play_again_button = tk.Button(root, text="Reset", command=reset_game, font=("Open Sans", 20))
+play_again_button = tk.Button(root, text="Reset", command=reset_game, font=("Times New Roman", 20))
 play_again_button.pack(padx=20, pady=10, anchor='center') 
 
-result_label = tk.Label(root, text="", font=("Open Sans", 25)) # 
+result_label = tk.Label(root, text="", font=("Times New Roman", 25)) # 
 
-score_label = tk.Label(root, text=f"Score: {score}", font=("Open Sans", 20))
+score_label = tk.Label(root, text=f"Score: {score}", font=("Times New Roman", 20))
 score_label.pack(padx=20, pady=10, anchor='center')
 
-time_label = tk.Label(root, text=f"Time Left: {time_left} seconds", font=("Open Sans", 20))
+time_label = tk.Label(root, text=f"Time Left: {time_left} seconds", font=("Times New Roman", 20))
 time_label.pack(padx=20, pady=10, anchor='center')
 
-name_label = tk.Label(root, text="Glasspham", font=("Open Sans", 10))
+name_label = tk.Label(root, text="Glasspham", font=("Times New Roman", 10))
 name_label.place(x=10, y=10)
 
 # Tạo Label để hiển thị điểm cao nhất
-hscore_label = tk.Label(root, text=f"Điểm cao nhất: {highest_score}", font=("Open Sans", 20))
+hscore_label = tk.Label(root, text=f"Điểm cao nhất: {highest_score}", font=("Times New Roman", 20))
 hscore_label.place(x=20, y=100)  # Đặt vị trí hiển thị của điểm cao nhất
 
 # Begin the countdown
