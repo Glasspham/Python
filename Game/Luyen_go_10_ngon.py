@@ -75,7 +75,7 @@ canvas.place(x=0, y=0, relwidth=1, relheight=1)
 canvas.create_image(0, 0, anchor=tk.NW, image=background_photo)
 
 # Các vật dụng khác
-display_label = tk.Label(root, text=choose_word(), font=("Open Sans", 40), justify='center')
+display_label = tk.Label(root, text=choose_word(), font=("Times New Roman", 40), justify='center')
 display_label.pack(padx=20, pady=(80, 20), anchor='center')
 
 entry = tk.Entry(root, width=30, font=("Open Sans", 20))
