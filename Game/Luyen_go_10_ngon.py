@@ -21,7 +21,7 @@ def check_word(event=None):
 
             if score > highest_score:
                 highest_score = score  # Cập nhật highest_score nếu đạt được điểm cao mới
-                hscore_label.config(text=f"Điểm cao nhất: {highest_score}")
+                hscore_label.config(text=f"Highest point: {highest_score}")
                 
         else:
             display_label.config(text=choose_word())
