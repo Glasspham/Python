@@ -10,7 +10,7 @@ game_mode = 1  # Đặt chế độ trò chơi mặc định
 def choose_word():
     return ''.join(random.choices(string.ascii_letters, k=5))   # k là số lượng kí tên xuất hiện 1 lần
 
-# Chức năng kiểm tra từ đã nhập và cập nhật điểm
+# Chức năng kiểm tra từ đã nhập và cập nhật điểm 1
 def check_word_game1(event=None):
     global score, time_left, highest_score  # Bao gồm highest_score là biến toàn cục
     if time_left > 0:
@@ -25,19 +25,24 @@ def check_word_game1(event=None):
             if score > highest_score:
                 highest_score = score  # Cập nhật highest_score nếu đạt được điểm cao mới
                 hscore_label.config(text=f"Highest point: {highest_score}")
-                
+
+            # After 2 seconds, reset the result_label
+            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
+
         else:
             display_label.config(text=choose_word())
             if entered_word == "":
                 result_label.config(text="Please enter a word", fg="red")
             else:
                 result_label.config(text="Incorrect, try again", fg="red")
-                score -= 10                     
+                score -= 10          
 
+            # After 2 seconds, reset the result_label
+            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
         entry.delete(0, tk.END)
         score_label.config(text=f"Score: {score}")
 
-# Chức năng kiểm tra từ đã nhập và cập nhật điểm
+# Chức năng kiểm tra từ đã nhập và cập nhật điểm 2
 def check_word_game2(event=None):
     global score, time_left, highest_score, timer  # Include the 'timer' global variable
 
@@ -53,7 +58,10 @@ def check_word_game2(event=None):
             if score > highest_score:
                 highest_score = score
                 hscore_label.config(text=f"Highest point: {highest_score}")
-                
+
+            # After 2 seconds, reset the result_label
+            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
+
             # Reset the timer when the word entered is correct
             root.after_cancel(timer)
             time_left = 10
@@ -66,6 +74,9 @@ def check_word_game2(event=None):
                 result_label.config(text="Incorrect, try again", fg="red")
                 score -= 10                     
 
+            # After 2 seconds, reset the result_label
+            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
+
         entry.delete(0, tk.END)
         score_label.config(text=f"Score: {score}")
 
@@ -76,8 +87,8 @@ def check_word(event=None):
         check_word_game1()  # Gọi hàm xử lý cho Game 1
     else:
         check_word_game2() 
-# Chức năng thời gian
 
+# Chức năng thời gian
 def update_time():
     global time_left, timer
     time_left -= 1
@@ -88,7 +99,8 @@ def update_time():
         check_button.config(text="Time's up!", state=tk.DISABLED)
     else:
         timer = root.after(1000, update_time)
-       
+
+# Hàm reset game khi chơi       
 def reset_game():
     global score, time_left, game_mode
     score = 0
@@ -103,6 +115,7 @@ def reset_game():
     check_button.config(text="Check", state=tk.NORMAL)
     update_time()
 
+# Chuyển đổi giữa 2 chế độ
 def change_game_mode(mode):
     global game_mode, time_left
     game_mode = mode
@@ -115,6 +128,7 @@ def change_game_mode(mode):
     update_time()  # Gọi lại hàm update_time() để bắt đầu đếm ngược mới cho chế độ mới
     check_button.config(text="Check", state=tk.NORMAL)  # Thiết lập lại nút "Check"
 
+# Tạo 2 nút chọn chế độ
 def create_game_mode_selection():
     mode_selection_window = tk.Toplevel(root)
     mode_selection_window.title("Select Game Mode")
