@@ -1,49 +1,26 @@
 import random
 import string
 import tkinter as tk
+from tkinter import messagebox
 from PIL import Image, ImageTk
 
-# Tạo biến cho chế độ trò chơi
-game_mode = 1  # Đặt chế độ trò chơi mặc định
+# Tạo hàm vẽ hình tròn xung quanh nút 'i'
+def draw_circle_around_i(canvas, x, y, radius):
+    canvas.create_oval(x - radius, y - radius, x + radius, y + radius, outline="black", width=2)
+    # Vẽ chữ 'i' bên trong hình tròn
+    canvas.create_text(x, y, text="i", font=("Times New Roman", 20), fill="black")
+
+# Chú thích và hướng dẫn chơi
+def show_instructions():
+    instruction_text = "Instructions:\n This is a game to practice typing with 10 fingers.\n There are two game modes with different time (time_left):\n \tGame mode 1 with a time limit of 25 seconds.\n \tIs how many correct words you will type in about\n \t30s.\n \tGame mode 2 with time limit of 10 seconds.\n \tEvery time you press check, the time will reset until\n \tyou enter without time and the game will stop.\n The scoring rule is correct +10 wrong -10 and change to a new character after pressing check or enter. "
+    messagebox.showinfo("Game Instructions", instruction_text)
 
 # Chức năng chọn từ ngẫu nhiên
 def choose_word():
     return ''.join(random.choices(string.ascii_letters, k=5))   # k là số lượng kí tên xuất hiện 1 lần
 
-# Chức năng kiểm tra từ đã nhập và cập nhật điểm 1
-def check_word_game1(event=None):
-    global score, time_left, highest_score  # Bao gồm highest_score là biến toàn cục
-    if time_left > 0:
-        entered_word = entry.get()
-        current_word = display_label.cget("text")
-        
-        if entered_word == current_word:
-            display_label.config(text=choose_word())
-            result_label.config(text="Correct", fg="green")
-            score += 10             #Nhập đúng điểm +10
-
-            if score > highest_score:
-                highest_score = score  # Cập nhật highest_score nếu đạt được điểm cao mới
-                hscore_label.config(text=f"Highest point: {highest_score}")
-
-            # After 2 seconds, reset the result_label
-            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
-
-        else:
-            display_label.config(text=choose_word())
-            if entered_word == "":
-                result_label.config(text="Please enter a word", fg="red")
-            else:
-                result_label.config(text="Incorrect, try again", fg="red")
-                score -= 10          
-
-            # After 2 seconds, reset the result_label
-            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
-        entry.delete(0, tk.END)
-        score_label.config(text=f"Score: {score}")
-
-# Chức năng kiểm tra từ đã nhập và cập nhật điểm 2
-def check_word_game2(event=None):
+# Chức năng kiểm tra từ đã nhập và cập nhật điểm
+def check_word(event=None):
     global score, time_left, highest_score, timer  # Include the 'timer' global variable
 
     if time_left > 0:
@@ -58,10 +35,7 @@ def check_word_game2(event=None):
             if score > highest_score:
                 highest_score = score
                 hscore_label.config(text=f"Highest point: {highest_score}")
-
-            # After 2 seconds, reset the result_label
-            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
-
+                
             # Reset the timer when the word entered is correct
             root.after_cancel(timer)
             time_left = 10
@@ -74,19 +48,8 @@ def check_word_game2(event=None):
                 result_label.config(text="Incorrect, try again", fg="red")
                 score -= 10                     
 
-            # After 2 seconds, reset the result_label
-            root.after(2000, lambda: result_label.config(text=""))  # Display "Correct" for 2 seconds
-
         entry.delete(0, tk.END)
         score_label.config(text=f"Score: {score}")
-
-# Hàm check_word tổng quát phản ánh cả hai trò chơi
-def check_word(event=None):
-    global game_mode
-    if game_mode == 1:
-        check_word_game1()  # Gọi hàm xử lý cho Game 1
-    else:
-        check_word_game2() 
 
 # Chức năng thời gian
 def update_time():
@@ -97,61 +60,28 @@ def update_time():
     if time_left == 0:
         root.after_cancel(timer)
         check_button.config(text="Time's up!", state=tk.DISABLED)
+        # Stop the game when time runs out
     else:
         timer = root.after(1000, update_time)
 
-# Hàm reset game khi chơi       
+# Chức năng reset game không cần run lại code
 def reset_game():
-    global score, time_left, game_mode
+    global score, time_left, timer
     score = 0
-    if game_mode == 1:
-        time_left = 25  # Thời gian cho chế độ Game 1
-    elif game_mode == 2:
-        time_left = 10  # Thời gian cho chế độ Game 2
+    time_left = 10
     score_label.config(text=f"Score: {score}")
     time_label.config(text=f"Time Left: {time_left} seconds")
     display_label.config(text=choose_word())
     result_label.config(text="")
-    check_button.config(text="Check", state=tk.NORMAL)
-    update_time()
-
-# Chuyển đổi giữa 2 chế độ
-def change_game_mode(mode):
-    global game_mode, time_left
-    game_mode = mode
-    if game_mode == 1:
-        time_left = 25  # Thời gian cho chế độ Game 1
-    elif game_mode == 2:
-        time_left = 10  # Thời gian cho chế độ Game 2
-    time_label.config(text=f"Time Left: {time_left} seconds")  # Cập nhật label hiển thị thời gian
-    root.after_cancel(timer)  # Hủy timer hiện tại
-    update_time()  # Gọi lại hàm update_time() để bắt đầu đếm ngược mới cho chế độ mới
-    check_button.config(text="Check", state=tk.NORMAL)  # Thiết lập lại nút "Check"
-
-# Tạo 2 nút chọn chế độ
-def create_game_mode_selection():
-    mode_selection_window = tk.Toplevel(root)
-    mode_selection_window.title("Select Game Mode")
-
-    def select_mode_1():
-        change_game_mode(1)
-        mode_selection_window.destroy()
-
-    def select_mode_2():
-        change_game_mode(2)
-        mode_selection_window.destroy()
-
-    mode1_button = tk.Button(mode_selection_window, text="Game Mode 1", command=select_mode_1, font=("Times New Roman", 20))
-    mode1_button.pack(padx=20, pady=10)
-
-    mode2_button = tk.Button(mode_selection_window, text="Game Mode 2", command=select_mode_2, font=("Times New Roman", 20))
-    mode2_button.pack(padx=20, pady=10)
+    check_button.config(text="Kiểm tra", state=tk.NORMAL)
+    root.after_cancel(timer)  # Reset the timer when the game is reset
+    update_time()  # Start the timer again
 
 root = tk.Tk()
 root.title("Speed Typing")
 score = 0
-time_left = 25  # Hoặc bất kỳ giá trị mặc định nào bạn muốn
 highest_score = 0  # Tạo biến để lưu điểm cao nhất
+time_left = 10
 image_path = ""  # Đặt đường dẫn tới hình ảnh của bạn. Còn không thì để trống 
 
 # Xử lý ảnh
@@ -178,11 +108,17 @@ canvas.place(x=0, y=0, relwidth=1, relheight=1)
 # Đặt ảnh nền vào Canvas ở phía dưới
 canvas.create_image(0, 0, anchor=tk.NW, image=background_photo)
 
-# Các chức năng trong game
-# Thêm một nút để mở hộp thoại chọn chế độ trò chơi
-mode_button = tk.Button(root, text="Select Game Mode", command=create_game_mode_selection, font=("Times New Roman", 20))
-mode_button.place(x=560, y=20)
+# Tạo Canvas để vẽ hình tròn xung quanh chữ 'i'
+info_canvas = tk.Canvas(root, width=30, height=30, bg="#00FFFF", highlightthickness=0)
+info_canvas.place(x=760, y=10)
 
+# Vẽ hình tròn xung quanh chữ 'i' trên Canvas
+draw_circle_around_i(info_canvas, 15, 15, 13)
+
+# Gắn hàm hiển thị hướng dẫn với sự kiện click vào hình tròn 'i'
+info_canvas.bind("<Button-1>", lambda event: show_instructions())
+
+# Các chức năng trong game
 # Hiện chữ ngẫu nhiên
 display_label = tk.Label(root, text=choose_word(), font=("Times New Roman", 40), justify='center')
 display_label.pack(padx=20, pady=(80, 20), anchor='center')
@@ -198,7 +134,7 @@ check_button.pack(padx=20, pady=10, anchor='center')
 
 # Hiện ra đúng hay sai
 result_label = tk.Label(root, text="", font=("Times New Roman", 25)) # 
-result_label.pack(padx=20, pady=10, anchor='center') 
+result_label.pack(padx=20, pady=10, anchor='center')
 
 # Ô điểm
 score_label = tk.Label(root, text=f"Score: {score}", font=("Times New Roman", 20))
@@ -208,7 +144,7 @@ score_label.pack(padx=20, pady=10, anchor='center')
 time_label = tk.Label(root, text=f"Time Left: {time_left} seconds", font=("Times New Roman", 20))
 time_label.pack(padx=20, pady=10, anchor='center')
 
-# Ký tên 
+# Ký tên
 name_label = tk.Label(root, text="Glasspham", font=("Times New Roman", 10))
 name_label.place(x=10, y=10)
 
@@ -216,7 +152,7 @@ name_label.place(x=10, y=10)
 hscore_label = tk.Label(root, text=f"Highest point: {highest_score}", font=("Times New Roman", 20))
 hscore_label.place(x=20, y=100)  # Đặt vị trí hiển thị của điểm cao nhất
 
-# Thêm nút "Chơi lại" và gán chức năng reset_game cho nó
+# Tạo nút reset
 play_again_button = tk.Button(root, text="Reset", command=reset_game, font=("Times New Roman", 20))
 play_again_button.place(x=20, y=200)
 
