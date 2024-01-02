@@ -61,15 +61,26 @@ root.title("Speed Typing")
 score = 0
 highest_score = 0  # Tạo biến để lưu điểm cao nhất
 time_left = 25
+image_path = ""  # Đặt đường dẫn tới hình ảnh của bạn. Còn không thì để trống 
 
-# Load the image
-background_image = Image.open ("path\Back.jpg")  # Thay thế bằng đường dẫn file ảnh của bạn
-window_width, window_height = 800, 500
-background_image = background_image.resize((window_width, window_height))
-background_photo = ImageTk.PhotoImage(background_image)
+if image_path.strip() == "":
+    # Nếu đường dẫn trống, tạo màu nền mặc định (màu xanh)
+    window_width, window_height = 800, 500
+    background_photo = tk.PhotoImage(width=window_width, height=window_height)
+else:
+    try:
+        # Tải hình ảnh nếu có đường dẫn
+        background_image = Image.open(image_path)
+        window_width, window_height = 800, 500
+        background_image = background_image.resize((window_width, window_height))
+        background_photo = ImageTk.PhotoImage(background_image)
+    except FileNotFoundError:
+        # Nếu không tìm thấy tệp hình ảnh, sử dụng màu nền mặc định (màu xanh)
+        window_width, window_height = 800, 500
+        background_photo = tk.PhotoImage(width=window_width, height=window_height)
 
 # Tạo Canvas để đặt ảnh nền
-canvas = tk.Canvas(root, width=window_width, height=window_height)
+canvas = tk.Canvas(root, width=window_width, height=window_height, bg="#00FFFF") # Thay đổi màu bằng tên hoặc dùng mã màu HEX CODE
 canvas.place(x=0, y=0, relwidth=1, relheight=1)
 
 # Đặt ảnh nền vào Canvas ở phía dưới
