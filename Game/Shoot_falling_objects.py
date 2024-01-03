@@ -81,6 +81,7 @@ while running:
             block_y = -BLOCK_SIZE  # Reset block position
             block_x = random.randint(0, WINDOW_WIDTH - BLOCK_SIZE)
             bullets.remove(bullet)  # Remove bullet from the list
+            score += 1
 
     if keys[pygame.K_SPACE]:  # If SPACE key is pressed
         new_bullet = {'x': player_x + PLAYER_SIZE // 2, 'y': player_y}  # Create a new bullet
