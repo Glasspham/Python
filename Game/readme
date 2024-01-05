@@ -1,0 +1,18 @@
+Một số lưu ý dành cho khi lấy game về máy.
+Vì tôi viết trên Visual Studio Code nên chỉ hướng dẫn với cái này, 
+con bạn sài IDE khác thì bạn tự tìm hiểu giúp mình!
+
+Như thư viện nào thiếu thì tải thêm bằng cách 
+"pip install name_library"
+Lưu ý có một số thư viện khác là phức tạp do phụ thuộc vào phiên bản Python
+PIL, tkinter, pygame, sys, ... Nên bạn cần coi kĩ và tham khảo trên gg nha 
+Còn tôi sai 3.10.9 nghe nói ổn định nhất trong các python
+
+Trong một số game có phần background hoặc giao diện nhân vật thì bạn cần làm theo các bước như
+sau để chạy tốt:
+B1: Bạn để ảnh bạn cần thay đổi nằm cùng file với code chính
+B2: Nếu trong vscode bạn chuột phải vào ảnh chọn path(Shift + Alt + C)
+    hoặc là bạn vào chỗ folder chứa game và ảnh, nhìn lên phần địa chỉ phía trên sao chép cũng được
+B3: Khi lấy được link dẫn rồi thì thế vào chỗ mà tôi để sẵn địa chỉ tôi là xong!
+
+Chúc bạn chơi game vui vẻ! Tạm biệt và hẹn gặp lại!
