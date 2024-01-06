@@ -126,6 +126,7 @@ class Operator:
             return None
         return self.swap(s, x, y, self.i)
 
+
     def move(self, s):
         if self.i == 0:
             return self.up(s)
@@ -147,14 +148,11 @@ def equal(O, G):
         return False
     return O.Key() == G.Key()
 
-def Path(O, steps=None):
-    if steps is None:
-        steps = []
+def Path(O):
     if O.par is not None:
-        steps = Path(O.par, steps)
-        steps.append(O.op.i)
+        Path(O.par)
+        print(O.op.i)
     O.Print()
-    return steps
 
 def Hx(S, G):
     sz = 3
@@ -179,10 +177,9 @@ def RUN(S, G):
         O = Open.get()
         if equal(O, G):
             print('Tim thay')
-            steps = Path(O)
-            print("Bước giải:", steps)
+            Path(O)
             return
-        
+
         closed_set.add(O.Key())
         for i in range(4):
             op = Operator(i)
