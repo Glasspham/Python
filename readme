@@ -1,2 +1,6 @@
 Tôi dùng Visual Studio Code
 Trong đây nếu bạn thiếu thư viện hãy mở terminal và ghi "pip install tenthuvien"
+Trong code có 1 thư viện khá là lỗi khi tải đó là PIL. 
+Thông báo
+ERROR: Could not find a version that satisfies the requirement PIL (from versions: none) ERROR: No matching distribution found for PIL
+Thì bạn có thể như tôi sử dụng gói thay thế cũng sẽ chạy được PIL là "pip install Pillow"
