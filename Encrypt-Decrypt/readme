@@ -1,0 +1,21 @@
+Hướng dẫn sử dụng
+TH1
+Choose action : Encrypt
+Enter message : Nhập 1 văn bản bất kì vào
+Enter numeric key : nhập mật khẩu vào để bảo vệ
+Nhấp Execute để tạo rồi được mã hóa
+Có thể dùng Copy Result để copy cái đã mã hóa
+
+TH2
+Choose action : Decrypt
+Enter message : Nhập 1 văn bản đã mã hóa vào
+Enter numeric key : nhập mật khẩu bảo vệ vào
+Nhấp Execute để giải mã 
+Có thể dùng Copy Result để copy thông tin
+
+Lưu ý:
+Mã hóa chỉ áp dụng cho English
+Enter message chỉ có thể nhập chữ vào nếu nhập số thì nó không mã hóa 
+số mà sẽ giữ nguyên
+Enter numeric key chỉ có thể nhập số vào nếu nhập chữ vào không mã hóa
+được luôn!
