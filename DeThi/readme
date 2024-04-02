@@ -1,0 +1,6 @@
+Bài 1
+Viết chương trình đọc vào 10 ảnh [tên ảnh trong folder đó là 1.jpg, 2.jpg,..., 10.jpg]. Sau 
+đó lưu 10 ảnh trên vào một folder khác, với các tên lần lượt là 11.jpg, 12.jpg,...20.jpg.
+Bài 2
+Đọc dữ liệu từ file data.csv có các dữ liệu : crim, zn, indus, chas, nox, rm, age, dis, rad,
+tax, ptratio, b, lstat, medv. Kiểm tra cốt medv nếu < 20 đổi thành "Thấp" còn ngược lại "Cao"
