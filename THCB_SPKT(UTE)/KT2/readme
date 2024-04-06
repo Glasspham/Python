@@ -1,0 +1,34 @@
+1. Đoạn mã dưới đây in các số từ 1 đến 50. Viết lại mã bằng vòng lặp while để
+thực hiện điều tương tự.(Không dùng vòng lặp for)
+2. Viết chương trình sử dụng vòng lặp while (không phải vòng lặp for) để đọc một
+chuỗi và in từng ký tự của chuỗi đó trên các dòng riêng biệt.
+3. Sửa đổi chương trình câu 2 để in ra từng ký tự thứ hai của chuỗi.
+4. Một chương trình tốt đảm bảo dữ liệu người dùng nhập vào là hợp lệ. Viết
+chương trình yêu cầu người dùng nhập trọng lượng và chuyển đổi nó từ kilôgam
+sang pound. Bất cứ khi nào người dùng nhập trọng số dưới 0, chương trình sẽ
+thông báo với họ rằng mục nhập của họ không hợp lệ và sau đó yêu cầu họ
+nhập lại trọng số. [Gợi ý: Sử dụng vòng lặp while, không phải câu lệnh if].
+5. Viết chương trình yêu cầu người dùng nhập mật khẩu. Nếu người dùng nhập
+đúng mật khẩu, chương trình sẽ thông báo cho họ biết họ đã đăng nhập vào
+hệ thống. Nếu không, chương trình sẽ yêu cầu họ nhập lại mật khẩu. Người
+dùng chỉ được thử nhập mật khẩu năm lần, sau thời điểm đó chương trình sẽ
+thông báo cho họ rằng họ sẽ bị thoát khỏi hệ thống.
+6. Viết chương trình cho phép người dùng nhập số điểm kiểm tra bất kỳ. Người
+dùng hoàn tất nhập điểm bằng cách nhập số âm. In ra bao nhiêu điểm là A (9
+hoặc cao hơn), đồng thời in ra điểm trung bình.
+7. Viết một chương trình có một danh sách mười từ, một số từ có các chữ cái lặp
+lại và một số thì không. Viết chương trình chọn một từ ngẫu nhiên trong danh
+sách không có chữ cái nào bị lặp lại.
+8. Viết một chương trình để chơi trò chơi đơn giản sau đây. Người chơi bắt đầu
+với $ 100. Trên mỗi lượt, một đồng xu được lật và người chơi phải đoán Ngửa
+hoặc Sấp. Người chơi giành được 9 đô la cho mỗi lần đoán đúng và mất 10 đô
+la cho mỗi lần đoán không chính xác. Trò chơi kết thúc khi người chơi hết tiền
+hoặc lên tới 200 đô la.
+9. Viết một chương trình để chơi trò chơi sau. Có một danh sách một số tên quốc
+gia và chương trình chọn ngẫu nhiên một. Người chơi sau đó phải đoán các chữ
+cái trong một từ một. Trước mỗi lần đoán, tên quốc gia được hiển thị với các
+chữ cái đoán chính xác được điền vào và phần còn lại của các chữ cái được biểu
+thị bằng dấu gạch ngang. Chẳng hạn, nếu quốc gia là Canada và người chơi đã
+đoán chính xác A, D và N, chương trình sẽ hiển thị -ANA -DA. Chương trình sẽ
+tiếp tục cho đến khi người chơi đoán tất cả các chữ cái của từ hoặc nhận được
+năm chữ cái sai.
