@@ -142,7 +142,7 @@ if __name__ == "__main__":
     root.geometry("900x700")
 
     # Đặt hình nền cho cửa sổ chính
-    image = Image.open("D:\\Code\\Project Visual Studio Code\\Python\\VeDoThi\\background.jpg")
+    image = Image.open("background.jpg")
     image = image.resize((900, 700))
     background_image = ImageTk.PhotoImage(image)
     background_label = tk.Label(root, image=background_image)
