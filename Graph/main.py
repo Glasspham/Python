@@ -13,10 +13,10 @@ def parse_function(function):
     
     # Thay thế các ký hiệu tuyệt đối
     function = re.sub(r'\|([^|]+)\|', r'np.abs(\1)', function)
-    
+
     # Thay thế 'ln' thành 'np.log'
     function = function.replace('ln', 'np.log')
-    
+
     # Thay thế 'log_b(x)' thành 'np.log(x)/np.log(b)'
     function = re.sub(r'log(\d+)\((.*?)\)', r'np.log(\2)/np.log(\1)', function)
     
@@ -25,8 +25,10 @@ def parse_function(function):
     for func in functions_list:
         function = re.sub(rf'\b{func}\b', f'np.{func}', function)
     
-    # Xử lý e^x và thêm dấu ngoặc đóng sau np.exp
-    function = re.sub(r'\be\^(\w+)', r'np.exp(\1)', function)
+    # Thay thế 'e' (hằng số Euler) bằng 'np.e'
+    function = re.sub(r'\be\b(?!\^)', r'np.e', function)
+    # Thay thế e^x thành np.exp(x)
+    function = re.sub(r'\be\^(\w+|\(.*?\))', r'np.exp(\1)', function)
     
     # Thay thế các ký tự nối nhau không hợp lệ
     function = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', function)
@@ -142,7 +144,7 @@ if __name__ == "__main__":
     root.geometry("900x700")
 
     # Đặt hình nền cho cửa sổ chính
-    image = Image.open("background.jpg")
+    image = Image.open("background.jpg") # Muốn ảnh khác thì đổi tên ảnh thành background.jpg
     image = image.resize((900, 700))
     background_image = ImageTk.PhotoImage(image)
     background_label = tk.Label(root, image=background_image)
