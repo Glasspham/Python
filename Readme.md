@@ -89,5 +89,4 @@ Bây giờ có thể chạy mà không cần lấy link của 2 file `.INP` và 
 <img alt="image" src="./img/6.png" width="800">
 
 ### Debug python
-
-Bạn có thể tham khảo của vscode tạo ở đây [instruct](https://code.visualstudio.com/docs/python/debugging#_debugging-specific-app-types)
+Để có thể debug mở cửa sổ bên ngoài bạn có thể tham khảo của vscode tạo ở đây [instruct](https://code.visualstudio.com/docs/python/debugging#_debugging-specific-app-types).
